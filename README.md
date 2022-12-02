@@ -12,7 +12,7 @@ Here is an example of how to use the `draw_mandelbrot_set` function in JavaScrip
 
 ```js
 // Import the draw_mandelbrot_set function from the mandelbrot module.
-import { draw_mandelbrot_set } from "./mandelbrot.wasm";
+import init, { draw_mandelbrot_set } from "./pkg/mandelrust.js";
 
 // Get a reference to the canvas element.
 const canvas = document.getElementById("mandelbrot-canvas");
