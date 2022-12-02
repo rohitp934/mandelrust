@@ -8,7 +8,31 @@ async function run() {
   await init();
   console.log("Loaded wasm!");
 
-  draw_mandelbrot_set();
+  // Set the background color of the page and the canvas to black.
+  document.body.style.background = "black";
+  const canvas = document.getElementById("mandelbrot-canvas");
+  // @ts-ignore
+  const context = canvas.getContext("2d");
+  context.fillStyle = "white";
+
+  // Initialize the zoom factor.
+  let zoom = 1.0;
+
+  // Define a function that updates the zoom level and redraws the
+  // Mandelbrot set at the new zoom level.
+  function update() {
+    // Increment the zoom level.
+    zoom *= 1.1;
+
+    // Draw the Mandelbrot set at the new zoom level.
+    draw_mandelbrot_set(zoom);
+
+    // Request the next animation frame.
+    window.requestAnimationFrame(update);
+  }
+
+  // Start the animation loop by requesting the first animation frame.
+  window.requestAnimationFrame(update);
 }
 
 run();
