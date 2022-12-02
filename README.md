@@ -10,7 +10,7 @@ To use this project, you will need a web browser that supports WebAssembly and t
 
 Here is an example of how to use the `draw_mandelbrot_set` function in JavaScript:
 
-```
+```js
 // Import the draw_mandelbrot_set function from the mandelbrot module.
 import { draw_mandelbrot_set } from "./mandelbrot.wasm";
 
@@ -31,10 +31,10 @@ The function also uses some constant values to calculate the real and imaginary 
 
 - `WIDTH`: The width of the canvas in pixels.
 - `HEIGHT`: The height of the canvas in pixels.
-- `RE_START`: The start value of the real part of the c value.
-- `RE_END`: The end value of the real part of the c value.
-- `IM_START`: The start value of the imaginary part of the c value.
-- `IM_END`: The end value of the imaginary part of the c value.
+- `RE_START`: The start value of the real part of the `c` value.
+- `RE_END`: The end value of the real part of the `c` value.
+- `IM_START`: The start value of the imaginary part of the `c` value.
+- `IM_END`: The end value of the imaginary part of the `c` value.
 
 You can adjust these constants to change the size and the range of the complex plane that is used to generate the set.
 
