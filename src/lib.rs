@@ -24,26 +24,7 @@ pub fn mandelbrot(c: Complex<f64>, zoom: f64) -> u32 {
 // element.
 #[wasm_bindgen]
 pub fn draw_mandelbrot_set(zoom: f64) -> Result<(), JsValue> {
-    let canvas = web_sys::window()
-        .unwrap()
-        .document()
-        .unwrap()
-        .get_element_by_id("mandelbrot-canvas")
-        .unwrap()
-        .dyn_into::<HtmlCanvasElement>()
-        .unwrap();
-
-    // Set the canvas dimensions to 1280x720.
-    canvas.set_width(1280);
-    canvas.set_height(720);
-
-    let context = canvas
-        .get_context("2d")
-        .unwrap()
-        .unwrap()
-        .dyn_into::<CanvasRenderingContext2d>()
-        .unwrap();
-
+    // ...
 
     // Clear the canvas.
     context.clear_rect(0.0, 0.0, canvas.width() as f64, canvas.height() as f64);
@@ -51,26 +32,23 @@ pub fn draw_mandelbrot_set(zoom: f64) -> Result<(), JsValue> {
     // Iterate over each point in the complex plane and draw a pixel on
     // the canvas with a color based on the number of iterations it
     // took to determine that the point does not belong to the set.
-    for i in -100..100 {
-        for j in -100..100 {
-            let c = Complex::new(i as f64 / 50.0, j as f64 / 50.0);
+    const WIDTH: usize = 600;
+    const HEIGHT: usize = 400;
+    const RE_START: f64 = -2.0;
+    const RE_END: f64 = 1.0;
+    const IM_START: f64 = -1.0;
+    const IM_END: f64 = 1.0;
+    for i in 0..WIDTH {
+        for j in 0..HEIGHT {
+            let re = RE_START + i as f64 * (RE_END - RE_START) / WIDTH as f64;
+            let im = IM_START + j as f64 * (IM_END - IM_START) / HEIGHT as f64;
+            let c = Complex::new(re, im);
             let i = mandelbrot(c, zoom);
-            // if i < 100 {
-            //     let color = format!("rgb({}, 0, {})", i * 2, 255 - i * 2);
-            //     context.set_fill_style(&JsValue::from_str(&color));
-            //     context.fill_rect(i as f64 + 50.0, j as f64 + 50.0, 1.0, 1.0);
-            // }
-            if i < 100 {
-                // Set the color of the points that belong to the set.
-                let color = "rgb(0, 0, 0)";
-                context.set_fill_style(&JsValue::from_str(&color));
-                context.fill_rect(i as f64 + 50.0, j as f64 + 50.0, 1.0, 1.0);
-            } else {
-                // Set the color of the points that do not belong to the set.
-                let color = format!("rgb({}, 0, {})", i * 2, 255 - i * 2);
-                context.set_fill_style(&JsValue::from_str(&color));
-                context.fill_rect(i as f64 + 50.0, j as f64 + 50.0, 1.0, 1.0);
-            }
+            let h = (i * 255) % 1000;
+            let s = if i < 1000 { 255 } else { 0 };
+            let v = if i < 1000 { 255 } else { 0 };
+            context.set_hsv_fill_style(h, s, v);
+            context.fill_rect(i as f64 + 50.0, j as f64 + 50.0, 1.0, 1.0);
         }
     }
 
