@@ -2,6 +2,7 @@
 
 <!-- Import the mandelbrot.png from assets/mandelbrot.png -->
 ![Mandelbrot Set](assets/mandelbrot.png)
+
 This project is a Rust implementation of the Mandelbrot set that can be used in a web browser using the WebAssembly technology. The set is generated using the mandelbrot function and rendered on an HTML canvas element using the `draw_mandelbrot_set` function.
 
 Usage
