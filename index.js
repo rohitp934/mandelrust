@@ -9,7 +9,7 @@ async function run() {
   console.log("Loaded wasm!");
 
   // Set the background color of the page and the canvas to black.
-  document.body.style.background = "black";
+  document.body.style.background = "white";
   const canvas = document.getElementById("mandelbrot-canvas");
   // @ts-ignore
   const context = canvas.getContext("2d");
